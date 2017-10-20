@@ -1,0 +1,15 @@
+*/configs/*
+*/config/database.php
+*/logs/log-*.php
+!*/logs/index.html
+*/cache/*
+!*/cache/index.html
+!*/cache/.htaccess
+
+application/logs/*
+application/third_party/*
+application/install/*
+!application/logs/index.html
+!application/logs/.htaccess
+/vendor/
+

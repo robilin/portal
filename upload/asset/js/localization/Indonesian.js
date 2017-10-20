@@ -1,0 +1,30 @@
+/*
+ * Translated default messages for the jQuery validation plugin.
+ * Locale: ID (Indonesia; Indonesian)
+ */
+$.extend($.validator.messages, {
+	required: "Kolom ini diperlukan.",
+	remote: "Harap benarkan kolom ini.",
+	email: "Silakan masukkan format email yang benar.",
+	url: "Silakan masukkan format URL yang benar.",
+	date: "Silakan masukkan format tanggal yang benar.",
+	dateISO: "Silakan masukkan format tanggal(ISO) yang benar.",
+	number: "Silakan masukkan angka yang benar.",
+	digits: "Harap masukan angka saja.",
+	creditcard: "Harap masukkan format kartu kredit yang benar.",
+	equalTo: "Harap masukkan nilai yg sama dengan sebelumnya.",
+	maxlength: $.validator.format("Input dibatasi hanya {0} karakter."),
+	minlength: $.validator.format("Input tidak kurang dari {0} karakter."),
+	rangelength: $.validator.format("Panjang karakter yg diizinkan antara {0} dan {1} karakter."),
+	range: $.validator.format("Harap masukkan nilai antara {0} dan {1}."),
+	max: $.validator.format("Harap masukkan nilai lebih kecil atau sama dengan {0}."),
+	min: $.validator.format("Harap masukkan nilai lebih besar atau sama dengan {0}."),
+    greaterThanDate:$.validator.format("Tanggal akhir Harus lebih besar dari Tanggal Mulai."),
+    greaterThanSelling:$.validator.format("Membeli Harga Harus lebih besar dari menjual Harga."),
+    greaterThanTransfer:$.validator.format("Mentransfer Qty Harus kurang dari produk Jumlah."),
+    greaterThanPurchase:$.validator.format("Penerimaan Qty Harus kurang dari Pembelian Qty."),
+    stockLocation:$.validator.format("Sama lokasi saham tidak memungkinkan untuk mentransfer."),
+    greaterThanInventory:$.validator.format("Persediaan Qty Harus lebih besar dari Beritahu Qty."),
+    noSpace:$.validator.format("Ruang tidak diizinkan"),
+    alphanumeric:$.validator.format("Huruf, angka , garis bawah , dan garis hanya silakan")
+});
