@@ -5,7 +5,7 @@
 */cache/*
 !*/cache/index.html
 !*/cache/.htaccess
-
+.htaccess
 application/logs/*
 application/third_party/*
 application/install/*
