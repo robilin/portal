@@ -56,17 +56,14 @@ class Customer extends Admin_Controller
         if($id) {
             $this->tbl_customer('customer_id');
             $data['customer_info'] = $this->global_model->get_by(array('customer_id' => $id), true);
-            $data['title'] = 'UPDATE CUSTOMER ACCOUNT #';
+            $data['title'] = 'UPDATE TENANT ACCOUNT #';
         }else{
-            $data['title'] = 'ADD CUSTOMER ACCOUNT #';
+            $data['title'] = 'ADD TENANT ACCOUNT #';
         }
         $this->db->select_max('customer_id');
         $lastId = $this->db->get('tbl_customer')->row()->customer_id;
         $data['code'] = $customerNo = 100000000 + $lastId + 1;
         
-           
-        $data['title'] = 'Add Tenant';
-
         $data['editor'] = $this->data; //get ck editor
         $data['subview'] = $this->load->view('admin/customer/add_customer', $data, true);
         $this->load->view('admin/_layout_main', $data);
