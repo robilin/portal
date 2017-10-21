@@ -15,9 +15,9 @@
       <div class="col-md-12">
          <div class="box box-primary">
             <div class="box-header box-header-background with-border">
-               <h3 class="box-title ">UPDATE TENANT PROFILE ACCOUNT # <?php if(!empty($customer_info)){
-                                          echo $customer_info->customer_account;
-                                          }else {echo $code; } ?></h3>
+               <h3 class="box-title "> <?php if(!empty($customer_info)){
+                   echo $title.' '.$customer_info->customer_account;
+                                          }else {echo $title.' '.$code; } ?></h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->

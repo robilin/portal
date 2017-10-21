@@ -64,52 +64,6 @@ class Meter_Model extends MY_Model
         return $result;
     }
     
-
-    // * me
-    public function get_all_loan_info()
-    {
-        $this->db->select('tbl_loan.*', false);
-        $this->db->from('tbl_loan');
-        $this->db->order_by('tbl_loan.loan_id', ' DESC');
-        $query_result = $this->db->get();
-        $result = $query_result->result();
-        return $result;
-    }
-    public function get_loan_information_by_id($id)
-    {
-        $this->db->select('tbl_loan.*', false);
-        $this->db->from('tbl_loan');
-        $this->db->order_by('tbl_loan.loan_id', ' DESC');
-        $query_result = $this->db->get();
-        $result = $query_result->row();
-        return $result;
-    }
-
-    public function get_damage_loan($id)
-    {
-        $this->db->select('tbl_loan.*', false);
-        $this->db->from('tbl_loan');
-        $this->db->where('tbl_loan.loan_id', $id);
-        $query_result = $this->db->get();
-        $result = $query_result->row();
-        return $result;
-    }
-
-
-    public function check_loan_code($loan_serial_number, $loan_id)
-    {
-        $this->db->select('tbl_loan.*', false);
-        $this->db->from('tbl_loan');
-        if ($loan_id) {
-            $this->db->where('loan_id !=', $loan_id);
-        }
-        $this->db->where('loan_serial_number', $loan_serial_number);
-        $query_result = $this->db->get();
-        $result = $query_result->row();
-
-        return $result;
-    }
-    
  public function get_all_meter_info()
     {
         $this->db->select('tbl_meter.*', false);

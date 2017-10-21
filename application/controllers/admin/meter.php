@@ -187,6 +187,41 @@ class Meter extends Admin_Controller
         $this->load->view('admin/_layout_modal', $data);
     }
     
+    public function install_meter($customer_id)
+    {
+              
+        $data['meter'] = $this->meter_model->get_all_meter_info();
+        
+        $user_type=$this->session->userdata('user_type');
+        
+        if($user_type==1){ //if user is admin show everything
+            $data['all_customer_info']     = $this->customer_model->get_customers_by_account_type(1); //1=tenant account type
+        }elseif($user_type==2 OR $user_type==3){
+            $parent=$this->session->userdata('employee_id');
+            $data['all_customer_info'] = $this->customer_model->get_customers_by_account_parent($parent,1); //1=user type has to be tenant always
+        }
+        
+        $data['title']         = 'Install meter';
+        $data['customer_id']=$customer_id;
+        $data['subview'] = $this->load->view('admin/meter/install_customer_meter', $data, true);
+        $this->load->view('admin/_layout_main', $data);
+    }
+    
+    public function save_install_meter($customer_id=null)
+    {
+        
+
+        $meter_id= $this->input->post('meter_id', true);
+        $data['install_date']  = $this->input->post('install_date', true);
+        $data['customer_id']  = $customer_id;
+        $data['status']  = 1; //installed
+        
+        $this->tbl_meter('meter_id');
+        $this->global_model->save($data,$meter_id);
+        
+        $this->message->custom_success_msg('admin/meter/manage_meter', 'Meter linked to customer succesfully!');
+    }
+    
    public function save_meter_link($id)
     {
     	
@@ -327,11 +362,11 @@ class Meter extends Admin_Controller
     {
         if ($id) { // if id
             $meter_id = $this->input->post('meter_id', true);
-           
+            $status=$this->input->post('status', true);
         } else {
             $meter_id = null;
          
-            //$meter_expire_id=null;
+            $status=0;
         }
 
         //*************** meter Information **************
@@ -340,7 +375,6 @@ class Meter extends Admin_Controller
             'meter_number',
         	'meter_serial_number',
             'meter_note',
-            'status',
             'meter_type',
             'meter_model',
         	'meter_vendor',
@@ -356,8 +390,7 @@ class Meter extends Admin_Controller
             'meter_purchase_price',
              ));
             
-         $meter_info['status']='With Customer';
-         $meter_info['meter_assignee']='Not assigned';    
+        $meter_info['meter_assignee']='Not assigned';    
 
         $this->tbl_meter('meter_id');
         $meter_id = $this->global_model->save($meter_info, $id);

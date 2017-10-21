@@ -80,21 +80,20 @@
                                     <td class="vertical-td"><?php echo $v_meter->meter_purchase_price ?></td>
                                      <td class="vertical-td">
                                         <?php
-                                        if(!empty($v_meter->status))
+                                        if(($v_meter->status==1))
                                         { ?>
-                                            <span class="label label-warning"><?php echo $v_meter->status ?></span>
+                                            <span class="label label-warning"><?php echo 'Installed' ?></span>
                                         <?php } else { ?>
-                                            <span class="label bg bg-olive"><?php echo 'Not available' ?></span>
+                                            <span class="label bg bg-olive"><?php echo 'Not installed' ?></span>
                                         <?php } ?>
 
                                     </td>
                                     <td class="vertical-td">
                                         <div class="btn-group">
-                                       	    <a href="<?php echo base_url().'admin/meter/meter_assign/'. $v_meter->meter_id ?>" class="btn btn-xs bg-olive" data-toggle="modal" data-target="#myModal"><i class="fa fa-book"> Assign</i></a>
                                             <a href="<?php echo base_url().'admin/meter/edit_meter/'. $v_meter->meter_id ?>" class="btn btn-xs btn-default" ><i class="fa fa-pencil"> </i></a>
                                             <a href="<?php echo base_url().'admin/meter/view_meter/'. $v_meter->meter_id ?>" class="btn btn-xs bg-olive" data-toggle="modal" data-target="#myModal" ><i class="glyphicon glyphicon-search"> </i></a>
                                             <a href="<?php echo base_url().'admin/meter/delete_meter/'. $v_meter->meter_id ?>" class="btn btn-xs btn-danger" ><i class="glyphicon glyphicon-trash"> </i></a>
-                                            <a href="<?php echo base_url().'admin/meter/meter_link/'. $v_meter->meter_id ?>" class="btn btn-xs bg-olive" data-toggle="modal" data-target="#myModal"><i class="fa fa-link"> Install</i></a>
+                                           
                                         </div>
                                     </td>
 

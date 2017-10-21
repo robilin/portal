@@ -412,6 +412,15 @@
                                                echo $meter_info->meter_id;
                                            }
                                            ?>">
+                                           
+                                           <!-- meter meter id -->
+                                    <input type="hidden" name="status"
+                                           value="<?php
+                                           if (!empty($meter_info)) {
+                                               echo $meter_info->status;
+                                           }
+                                           ?>">
+                                               
                                                                              
                                      
 

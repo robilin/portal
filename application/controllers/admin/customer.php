@@ -56,8 +56,10 @@ class Customer extends Admin_Controller
         if($id) {
             $this->tbl_customer('customer_id');
             $data['customer_info'] = $this->global_model->get_by(array('customer_id' => $id), true);
+            $data['title'] = 'UPDATE CUSTOMER ACCOUNT #';
+        }else{
+            $data['title'] = 'ADD CUSTOMER ACCOUNT #';
         }
-        
         $this->db->select_max('customer_id');
         $lastId = $this->db->get('tbl_customer')->row()->customer_id;
         $data['code'] = $customerNo = 100000000 + $lastId + 1;
@@ -381,6 +383,9 @@ class Customer extends Admin_Controller
         if($id) {
             $this->tbl_customer('customer_id');
             $data['customer_info'] = $this->global_model->get_by(array('customer_id' => $id), true);
+            $data['title'] = 'UPDATE LANDLORD ACCOUNT #';
+        }else{
+            $data['title'] = 'ADD LANDLORD ACCOUNT #';
         }
         
         $this->db->select_max('customer_id');
@@ -388,7 +393,7 @@ class Customer extends Admin_Controller
         $data['code'] = $customerNo = 100000000 + $lastId + 1;
         
         
-        $data['title'] = 'Add Tenant';
+  
         
         $data['editor'] = $this->data; //get ck editor
         $data['subview'] = $this->load->view('admin/customer/add_landlord', $data, true);
@@ -550,6 +555,9 @@ class Customer extends Admin_Controller
         if($id) {
             $this->tbl_customer('customer_id');
             $data['customer_info'] = $this->global_model->get_by(array('customer_id' => $id), true);
+            $data['title'] = 'UPDATE PARTNER ACCOUNT #';
+        }else{
+            $data['title'] = 'ADD PARTNER ACCOUNT #';
         }
         
         $this->db->select_max('customer_id');
@@ -557,7 +565,7 @@ class Customer extends Admin_Controller
         $data['code'] = $customerNo = 100000000 + $lastId + 1;
         
         
-        $data['title'] = 'Add Partner';
+       
         
         $data['editor'] = $this->data; //get ck editor
         $data['subview'] = $this->load->view('admin/customer/add_partner', $data, true);

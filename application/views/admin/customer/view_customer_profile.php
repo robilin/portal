@@ -91,7 +91,14 @@
 										<!-- /.History payments -->
 											
 						<div class="box">
-										<div class="box-body">					                        <!-- Table -->
+					<div class="box-body">
+					 <!-- /.add meter button -->
+                           <div class="row">
+                              <div class="col-md-12">
+                                 <a  href="<?php echo base_url().'admin/meter/install_meter/'.$customer_info->customer_id; ?>" class="addAttribute btn btn-info "><i class="fa fa-plus"></i> Add Meter</a>                  
+                              </div>
+                           </div>
+                           <hr>				                        <!-- Table -->
                       <!-- Table -->
                    <!-- <table id="datatable" class="table table-striped table-bordered datatable-buttons"> -->
                     <table class="table table-bordered table-hover" id="dataTables-example">
