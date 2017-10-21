@@ -69,7 +69,7 @@
                                        ?>><?php echo $customer_info->gender; ?></option>
                                  <option value="Male">Male</option>
                                  <option value="Female">Female</option>
-                                 <option value="Other">Other</option>
+                                
                                  <?php }else {?>
                                  <option value="Male">Male</option>
                                  <option value="Female">Female</option>

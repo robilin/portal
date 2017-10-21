@@ -146,7 +146,7 @@
                            <!-- /.Phone -->
                            <div class="form-group">
                               <label for="exampleInputEmail1">Phone</label> 
-                              <input type="text" placeholder="Phone" name="phone"	onchange="check_phone(this.value)"	value="<?php
+                              <input type="text" placeholder="Phone" required name="phone"	onchange="check_phone(this.value)"	value="<?php
                                  if (!empty($customer_info->phone)) {
                                    echo $customer_info->phone;
                                  }
