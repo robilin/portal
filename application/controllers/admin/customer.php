@@ -219,6 +219,7 @@ class Customer extends Admin_Controller
         $user_info['flag'] = 0;
         $user_info['user_category_id'] = 2;
         $user_info['parent_id'] = $parent_id;
+        $user_info['approved'] = 0;
         
         
         if(empty($user_id)){
@@ -855,15 +856,18 @@ class Customer extends Admin_Controller
  
          $data['status'] ='approved';
          $this->tbl_customer('customer_id');
-            
-            //update
          $this->global_model->save($data,$customer_id);
 
+         
         //retrieve account info for to get account taype
         
-         $account_type= $this->db->get_where('tbl_customer', array('customer_id' =>$customer_id))->row();
+        $account_type= $this->db->get_where('tbl_customer', array('customer_id' =>$customer_id))->row();
         
-         $account=$account_type->account_type;
+        $account=$account_type->account_type;
+      
+        $user_data['approved']=1;
+        $this->db->where('customer_id', $customer_id);
+        $this->db->update('tbl_user', $user_data);
         
         if($account==1){        
         $this->message->custom_success_msg('admin/customer/manage_tenants', 'Approved Successfully!');

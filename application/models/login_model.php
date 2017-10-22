@@ -36,12 +36,11 @@ class Login_Model extends MY_Model
         $this->_table_name = 'tbl_user';
         $this->_order_by = 'user_id';
 
-        $user = $this->get_by(array(
-                'user_name' => $this->input->post('user_name'),
-                'password' => $this->hash($this->input->post('password')),
-                    ), true);
+        $user = $this->get_by(array('user_name' => $this->input->post('user_name'),'password' => $this->hash($this->input->post('password')),'approved'=>1 ), true);
+        
 
-        if (count($user)) {
+
+        if (count($user)){
             $data = array(
                     'user_name' => $user->user_name,
                     'name' => $user->name,
