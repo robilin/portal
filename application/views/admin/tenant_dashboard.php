@@ -152,16 +152,22 @@
                                 </thead>
                                 <tbody>
                                 <?php
-                                if(!empty($top_sell_product_month)):
-                                    $top_product = array_slice($top_sell_product_month, 0, 5);
+                                if(!empty($meter)):
+                               
                                     $i=1;
                                     ?>
-                                    <?php foreach($top_product as $item): ?>
+                                    <?php foreach($meter as $v_meter): ?>
                                     <tr>
                                         <td><?php echo $i ?></td>
-                                        <td class="highlight"><?php echo $item->product_code ?></td>
-                                        <td><?php echo $item->product_name ?></td>
-                                        <td class="highlight"><strong><?php echo $item->quantity ?></strong></td>
+                                        <td class="highlight"><?php echo $v_meter->meter_number ?></td>
+                                        <td><a href="<?php echo base_url().'admin/meter/view_meter/'. $v_meter->meter_id ?>" class="btn btn-xs bg-olive" data-toggle="modal" data-target="#myModal" ><i class="glyphicon glyphicon-search"> </i></a></td>
+                                        <td class="highlight"><strong><?php
+                                        if(($v_meter->status==1))
+                                        { ?>
+                                            <span class="label label-warning"><?php echo 'Installed' ?></span>
+                                        <?php } else { ?>
+                                            <span class="label bg bg-olive"><?php echo 'Not installed' ?></span>
+                                        <?php } ?></strong></td>
                                         <?php $i ++ ?>
                                     </tr>
                                 <?php endforeach;

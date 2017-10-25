@@ -118,7 +118,7 @@
                             </tr>
                             </thead><!-- / Table head -->
                             <tbody><!-- / Table body -->
-
+                            
                             <?php if (!empty($meter)): foreach ($meter as $v_meter) : ?>
                                 <tr class="custom-tr">
                                     <td class="vertical-td"><input name="meter_id[]" value="<?php echo $v_meter->meter_id ?>" class="child_present" type="checkbox" /></td>
@@ -151,11 +151,9 @@
                                     </td>
                                     <td class="vertical-td">
                                         <div class="btn-group">
-                                       	    <a href="<?php echo base_url().'admin/meter/meter_assign/'. $v_meter->meter_id ?>" class="btn btn-xs bg-olive" data-toggle="modal" data-target="#myModal"><i class="fa fa-book"> Assign</i></a>
                                             <a href="<?php echo base_url().'admin/meter/edit_meter/'. $v_meter->meter_id ?>" class="btn btn-xs btn-default" ><i class="fa fa-pencil"> </i></a>
                                             <a href="<?php echo base_url().'admin/meter/view_meter/'. $v_meter->meter_id ?>" class="btn btn-xs bg-olive" data-toggle="modal" data-target="#myModal" ><i class="glyphicon glyphicon-search"> </i></a>
-                                            <a href="<?php echo base_url().'admin/meter/delete_meter/'. $v_meter->meter_id ?>" class="btn btn-xs btn-danger" ><i class="glyphicon glyphicon-trash"> </i></a>
-                                            <a href="<?php echo base_url().'admin/meter/meter_link/'. $v_meter->meter_id ?>" class="btn btn-xs bg-olive" data-toggle="modal" data-target="#myModal"><i class="fa fa-link"> Install</i></a>
+                                    
                                         </div>
                                     </td>
 
@@ -201,9 +199,9 @@
                             <tbody><!-- / Table body -->
                             <?php $counter =1 ; ?>
                             
-                           <?php $payment_info=$this->db->get_where('tbl_mobile_payments')->result(); ?>
+                           <?php //$payment_info=$this->db->get_where('tbl_mobile_payments')->result(); ?>
                            
-                           <?php if (!empty($payment_info)): foreach ($payment_info as $v_mobile_payments) : ?>
+                           <?php if (!empty($payments)): foreach ($payments as $v_mobile_payments) : ?>
                            <tr class="custom-tr">
                               <td class="vertical-td">
                                  <?php echo  $counter ?>

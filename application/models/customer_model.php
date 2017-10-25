@@ -54,7 +54,7 @@ class Customer_Model extends MY_Model
     
  public function get_customers_by_id($customer_id)
     {
-        $this->db->select('tbl_customer.user_id', false);
+        $this->db->select('tbl_customer.*', false);
         $this->db->from('tbl_customer');
         $this->db->where('customer_id', $customer_id);
  		$query_result = $this->db->get();

@@ -45,21 +45,13 @@ class Meter extends Admin_Controller
         
         if (!empty($meter_id)) {
             
-            
-            if ($action == 1) {
-                //with customer meter
-                $this->meter_with_customer($meter_id);
-                
-            } elseif ($action == 2) {
+           if ($action == 1) {
                 //mark in use meter
                 $this->confiscated_meter($meter_id);
-            } elseif ($action == 3) {
-                //decommission meter
-                $this->meter_with_branch($meter_id);
-            } elseif ($action == 4) {
+            }elseif ($action == 2) {
                 //mstolen_meter
                 $this->mark_stolen_meter($meter_id);
-            } elseif ($action == 5) {
+            } elseif ($action ==3) {
                 //mark damaged_meter
                 $this->mark_damaged_meter($meter_id);
             } else {
@@ -108,19 +100,6 @@ class Meter extends Admin_Controller
             $this->global_model->save($data,$id );
         }
         $this->message->custom_success_msg('admin/meter/manage_meter', 'Action successfully!');
-    }
-    
-  public function meter_with_customer($meter_id)
-    {
-        foreach($meter_id as $v_meter_id){
-            $id = $v_meter_id;
-            $data['status'] ='With Customer';
-            $this->tbl_meter('meter_item');
-
-            //update
-            $this->global_model->save($data,$id );
-        }
-        $this->message->custom_success_msg('admin/meter/manage_meter', 'Successfully!');
     }
     
     
@@ -191,17 +170,14 @@ class Meter extends Admin_Controller
     {
               
         $data['meter'] = $this->meter_model->get_all_meter_info();
+     
         
-        $user_type=$this->session->userdata('user_type');
+        $data['meter'] = $this->meter_model->get_all_meter_info();
         
-        if($user_type==1){ //if user is admin show everything
-            $data['all_customer_info']     = $this->customer_model->get_customers_by_account_type(1); //1=tenant account type
-        }elseif($user_type==2 OR $user_type==3){
-            $parent=$this->session->userdata('employee_id');
-            $data['all_customer_info'] = $this->customer_model->get_customers_by_account_parent($parent,1); //1=user type has to be tenant always
-        }
         
-        $data['title']         = 'Install meter';
+        $customer_info= $this->customer_model->get_customers_by_id($customer_id); //1=user type has to be tenant always
+        
+        $data['title']         = 'Install meter to'.' '.$customer_info->first_name.' '.$customer_info->last_name;
         $data['customer_id']=$customer_id;
         $data['subview'] = $this->load->view('admin/meter/install_customer_meter', $data, true);
         $this->load->view('admin/_layout_main', $data);
@@ -209,13 +185,20 @@ class Meter extends Admin_Controller
     
     public function save_install_meter($customer_id=null)
     {
+        $customer_info= $this->customer_model->get_customers_by_id($customer_id);
         
-
-        $meter_id= $this->input->post('meter_id', true);
         $data['install_date']  = $this->input->post('install_date', true);
         $data['customer_id']  = $customer_id;
-        $data['status']  = 1; //installed
-        
+
+        $meter_id= $this->input->post('meter_id', true);
+        if(($customer_info->account_type==1)){
+        $data['status']  = 1; //installed     
+        }else{
+        $data['meter_assigned_date']  = $this->input->post('install_date', true);
+        $data['meter_assigned_to'] = $data['customer_id'];
+        $data['status']  = 0; //installed
+        }
+        //update
         $this->tbl_meter('meter_id');
         $this->global_model->save($data,$meter_id);
         

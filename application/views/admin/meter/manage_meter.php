@@ -18,12 +18,10 @@
                         <div class="input-group ">
                             <select class="form-control pull-right" name="action" style="width: 150px;" required>
                                 <option value="">Select..</option>
-                                <option value="1">With Customer</option>
-                                <option value="2">Confiscated</option>
-                                <option value="3">With Branch</option>
-                                <option value="4">Mark stolen</option>
-                                <option value="5">Mark damaged</option>
-                                 <option value="6">Delete</option>
+                                <option value="1">Confiscated</option>
+                                <option value="2">Mark stolen</option>
+                                <option value="3">Mark damaged</option>
+                                <option value="4">Delete</option>
                             </select>
                                     <span class="input-group-btn">
                                       <button type="submit" class="btn btn-default" type="button">Action</button>
@@ -76,7 +74,16 @@
                                     <td class="vertical-td"><?php echo $v_meter->meter_type ?></td>
                                     <td class="vertical-td"><?php echo $v_meter->meter_serial_number ?></td>
                              
-                                    <td class="vertical-td"><?php echo $v_meter->meter_assignee ?></td>	
+                                    <td class="vertical-td"><?php 
+                                    $assigned_to=$this->db->get_where('tbl_customer',array('customer_id'=>$v_meter->meter_assigned_to))->result();
+                                    if(!empty($assigned_to)){
+                                    foreach ($assigned_to as $v_to) {
+                                       echo $v_to->first_name.' '.$v_to->last_name;
+                                    }}else{
+                                        echo 'Not Assigned';
+                                    }
+                                    
+                                    ?></td>	
                                     <td class="vertical-td"><?php echo $v_meter->meter_purchase_price ?></td>
                                      <td class="vertical-td">
                                         <?php

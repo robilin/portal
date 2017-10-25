@@ -33,6 +33,7 @@ class Dashboard extends Admin_Controller
         $data['year'] = date('Y');
         $user_type = $this->session->userdata('user_type');
         $account_type= $this->session->userdata('account_type');
+        $customer_id = $this->session->userdata('customer_id');
         
         //total customer
         $data['total_customer'] = count( $this->db->get('tbl_customer')->result());
@@ -41,6 +42,8 @@ class Dashboard extends Admin_Controller
         $last_day_this_month  = date('Y-m-t');
     
         $data['today_payment'] = $this->dashboard_model->get_today_payments();
+        
+        $data['meter']=$this->db->get_where('tbl_meter',array('customer_id'=>$customer_id))->result();
          
          //weekly  Report
         $data['weekly_payments'] = $this->dashboard_model->get_weekly_payments();
@@ -58,6 +61,7 @@ class Dashboard extends Admin_Controller
         $data['subview'] = $this->load->view('admin/dashboard', $data, true); // sub view
         }elseif($account_type==1){ //load tenant dash
              $data['title'] = 'Tenant Dashboard'; // title
+       
              $data['subview'] = $this->load->view('admin/tenant_dashboard', $data, true); // sub view
         }elseif($account_type==2){ //load landlord dash
             $data['title'] = 'Landlord Dashboard'; // title

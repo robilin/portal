@@ -712,29 +712,37 @@ class Customer extends Admin_Controller
         //tab selection
         $tab = $this->uri->segment(6);
         if(!empty($tab)){
-            if($tab == 'history')
+            if($tab == 'meters')
             {
                 $data['tab'] = $tab;
             }else{
                 $data['tab'] = $tab;
             }
         }
+        
+        //************* cutomer payment details ****************//
 
+        $data['payments']=$this->payments_model->get_payment_details_by_id($id);
+                
         //************* Retrieve customer ****************//
 
-        if($id) {
+        if($id){
             $this->tbl_customer('customer_id');
             $data['customer_info'] = $this->global_model->get_by(array('customer_id' => $id), true);
+            $customer_info=$data['customer_info'];
         }
         
         $user_type = $this->session->userdata('user_type');
-        
-        
+      
         if($user_type==1){
             $data['show_approve_button']=1;
+            $data['meter']=$this->db->get_where('tbl_meter',array('customer_id'=>$id))->result();
         }else{
             $data['show_approve_button']=0;
+            $data['meter']=$this->db->get_where('tbl_meter',array('meter_assigned_to'=>$id))->result();
         }
+        
+        
 
         $data['title']='View My Profile';
         $data['editor'] = $this->data; //get ck editor

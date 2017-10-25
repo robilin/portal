@@ -1,3 +1,6 @@
+<?php
+use PhpParser\Node\Stmt\Foreach_;
+?>
 <cript src="<?php echo base_url(); ?>asset/js/ajax.js"></script>
 <link href="<?php echo base_url(); ?>asset/css/select2.css" rel="stylesheet" type="text/css" />
 <script src="<?php echo base_url(); ?>asset/js/select2.js"></script>
