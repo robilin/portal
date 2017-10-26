@@ -79,7 +79,7 @@ a {
 
 			<?php echo form_open('login');?>
             <?php echo validation_errors(); ?>
-            <?php echo $this->session->flashdata('error'); ?>
+         <span class="label label-danger"><?php echo $this->session->flashdata('error'); ?></span></>
                      <div class="form-group has-feedback">
                 <input type="text" name="user_name" class="form-control input-lg" placeholder="Username" required="required" />
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>

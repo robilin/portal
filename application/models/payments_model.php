@@ -46,10 +46,9 @@ class Payments_Model extends MY_Model
   {
       
     $this->db->select('tbl_mobile_payments.*', false);
-    $this->db->select('tbl_meter.*', false);
     $this->db->from('tbl_mobile_payments');
     $this->db->where('tbl_meter.customer_id',$customer_id);
-    $this->db->join('tbl_meter', 'tbl_meter.meter_number=  tbl_mobile_payments.referencseNo', 'right');
+    $this->db->join('tbl_meter', 'tbl_meter.meter_number=  tbl_mobile_payments.referenceNo', 'right');
     $query_result = $this->db->get();
     $result = $query_result->result();
     return $result;

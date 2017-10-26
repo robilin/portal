@@ -633,10 +633,7 @@ class Customer extends Admin_Controller
         
         $this->tbl_customer('customer_id');
         $customer_id = $this->global_model->save($customer_info, $id);
-        
-        
-        
-        
+       
         //****************** customer & file Image Upload ***********************//
         
         // save image Process
@@ -742,17 +739,12 @@ class Customer extends Admin_Controller
             $data['meter']=$this->db->get_where('tbl_meter',array('meter_assigned_to'=>$id))->result();
         }
         
-        
-
         $data['title']='View My Profile';
         $data['editor'] = $this->data; //get ck editor
         $data['subview'] = $this->load->view('admin/customer/view_customer_profile', $data, true);
         $this->load->view('admin/_layout_main', $data);
     }
-    
-  
-    
-   
+ 
     public function view_tenants($id)
     {
         //tab selection
@@ -865,8 +857,7 @@ class Customer extends Admin_Controller
          $data['status'] ='approved';
          $this->tbl_customer('customer_id');
          $this->global_model->save($data,$customer_id);
-
-         
+ 
         //retrieve account info for to get account taype
         
         $account_type= $this->db->get_where('tbl_customer', array('customer_id' =>$customer_id))->row();

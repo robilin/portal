@@ -51,21 +51,28 @@ class Customer_Register extends CI_Controller
         $first_name          = $this->input->post('first_name', true);
         $last_name = $this->input->post('last_name', true);
         $phone       = $this->input->post('phone', true);
-        $username    = $this->input->post('user_name', true);
+        $user_name    = $this->input->post('user_name', true);
     	$email= $this->input->post('email', true);
     	$account_type= $this->input->post('account_type', true);
     	$password= $this->input->post('password', true);
-           
+    	$gender= $this->input->post('gender', true);
+    	$birthday_month= $this->input->post('birthday_month', true);
+    	$birthday_day= $this->input->post('birthday_day', true);
+    	$birthday_year= $this->input->post('birthday_year', true);
+        
         //*************** patient Information **************
-
-                     
+             
         $reg_info['first_name']=$first_name;
         $reg_info['last_name']=$last_name;
-        //$reg_info['user_name']=$username;
+        //$reg_info['user_name']=$user_name;
         $reg_info['email']=$email;
         $reg_info['phone']=$phone;
         $reg_info['registration_date']= date("Y-m-d H:i:s");
+        $reg_info['birth_date']=$birthday_year.'-'.$birthday_month.'-'.$birthday_day;
+        $reg_info['account_type']=$account_type;
+        $reg_info['gender']=$gender;
         
+            
         $this->db->select_max('customer_id');
         $lastId = $this->db->get('tbl_customer')->row()->customer_id;
         $reg_info['customer_account'] = $customerNo = 100000000 + $lastId + 1;
@@ -77,8 +84,23 @@ class Customer_Register extends CI_Controller
         
         //create login access
         $name=$first_name.' '.$last_name;
-        $login=$this->create_user_login($customer_id,$password,$username,$email,$name,$account_type);
         
+        $parent_id=0;
+        $flag = 0;
+        $user_category_id = 2;
+        $user_id=null;
+        
+        $login=$this->create_user_login($customer_id,$name,$user_name,$password,$email,$account_type,$user_category_id,$flag,$user_id,$parent_id);
+        
+        //update current_stock
+        
+        $this->update_current_stock($customer_id,$reg_info['customer_account']);
+        
+        //send alert
+        $message='Ndugu,'.$name.' Umesajiliwa PayLess kikamilifu';
+        
+        $this->alert($reg_info['phone'],$message);
+          
         if($login===1 || $login===2){
         $this->session->set_flashdata('error', 'Registration succesful,Click sign in to login');
         redirect('customer_register', 'refresh');
@@ -89,23 +111,29 @@ class Customer_Register extends CI_Controller
     }
     
     /*** Save login ***/
-    public function create_user_login($customer_id,$password=null,$user_name=null,$email=null,$name=null,$account_type=null)
+    public function create_user_login($customer_id=null,$name=null,$user_name=null,$password=null,$email=null,$account_type=null,$user_category_id=null,$flag=null,$user_id=null,$parent_id=null)
     {
         
-        $data['password'] = $this->encryption->hash($password);
-        $data['user_name'] = $user_name;
-        $data['email'] = $email;
-   		$data['name'] = $name;
-		$data['flag'] = 0; //normal user, avoid creating super user , ie flag 1
-		$data['user_category_id'] = 2;
-		$data['account_type']=$account_type;
-       
-		$this->user_model->_table_name = 'tbl_user'; // table name
-        $this->user_model->_primary_key = 'user_id'; // $id
-        $id = $this->user_model->save($data);
-   
+        $user_info['name']=$name;
+        $user_info['customer_id']=$customer_id;
+        $user_info['user_name'] =$user_name;
+        $user_info['password']=$this->encryption->hash($password);
+        $user_info['email'] = $email;
+        $user_info['account_type']=$account_type;
+        $user_info['flag'] = 0;
+        $user_info['user_category_id'] = 2;
+        $user_info['parent_id'] = $parent_id;
+        $user_info['approved'] = 0;
         
-   
+        
+        if(empty($user_id)){
+            $this->db->insert("tbl_user",$user_info);
+            $id= $insert_id = $this->db->insert_id();
+        }else{
+        }
+        
+        
+        
         //update menu available for customers generally
         
         $menu_data['employee_login_id']=$id;
@@ -113,18 +141,17 @@ class Customer_Register extends CI_Controller
         $menu = $this->db->get('tbl_customer_menu')->result();
         
         foreach ($menu as $v_menu) {
-        	$menu_data['menu_id']=$v_menu->menu_id;
-        	
-        	$this->db->insert("tbl_user_role",$menu_data);
-         }
-         
-         
-    
+            $menu_data['menu_id']=$v_menu->menu_id;
+            $this->db->insert("tbl_user_role",$menu_data);
+        }
+        
+        
+        
         if (!empty($id)) {
-        	
-        	//update customer table
-        	$this->update_customer($customer_id, $id);
-        	
+            
+            //update customer table
+            $this->update_customer($customer_id, $id);
+            
             $type = 'success';
             $message = 'User Login Information Update Successfully!';
             set_message($type, $message);
@@ -136,6 +163,34 @@ class Customer_Register extends CI_Controller
             return 2;
         }
     }
+    
+    public function update_current_stock($customer_id,$customer_account){
+        
+        $stock_info['customer_id']=$customer_id;
+        $stock_info['last_updated']=date("Y-m-d H:i:s");
+        $stock_info['current_stock']=0;
+        $stock_info['customer_account']=$customer_account;
+        
+        $customer_id = $this->db->insert('tbl_current_stock',$stock_info);
+        
+        
+    }
+    
+    public function alert($phone=null,$message)
+    {
+        
+        //load send sms library
+        $this->load->library('public_sms');
+        
+        $from='INFO';
+        $flag=2; //this will force to return semaphore here
+        
+        
+        if(strlen($phone)>=9 AND strlen($message)>0 ){
+            $send_sms=$this->public_sms->send_autoreply($phone, $message,$flag,$from);
+        }
+    }
+    
     
     
     
