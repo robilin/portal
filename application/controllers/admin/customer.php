@@ -100,7 +100,6 @@ class Customer extends Admin_Controller
             'customer_account',
             'first_name',
             'last_name',
-            'birth_date',
         	'gender',
             'house_no',
             'village',
@@ -117,6 +116,11 @@ class Customer extends Admin_Controller
         	            
          ));
         
+        $birthday_month= $this->input->post('birthday_month', true);
+        $birthday_day= $this->input->post('birthday_day', true);
+        $birthday_year= $this->input->post('birthday_year', true);
+        
+        $customer_info['birth_date']=$birthday_year.'-'.$birthday_month.'-'.$birthday_day;
         
         $user_category_id = $this->session->userdata('user_category_id');
         
@@ -427,7 +431,6 @@ class Customer extends Admin_Controller
             'customer_account',
             'first_name',
             'last_name',
-            'birth_date',
             'gender',
             'house_no',
             'village',
@@ -444,6 +447,11 @@ class Customer extends Admin_Controller
             
         ));
         
+        $birthday_month= $this->input->post('birthday_month', true);
+        $birthday_day= $this->input->post('birthday_day', true);
+        $birthday_year= $this->input->post('birthday_year', true);
+        
+        $customer_info['birth_date']=$birthday_year.'-'.$birthday_month.'-'.$birthday_day;
         
         $user_category_id = $this->session->userdata('user_category_id');
         
@@ -601,7 +609,6 @@ class Customer extends Admin_Controller
             'customer_account',
             'first_name',
             'last_name',
-            'birth_date',
             'gender',
             'house_no',
             'village',
@@ -618,6 +625,11 @@ class Customer extends Admin_Controller
             
         ));
         
+        $birthday_month= $this->input->post('birthday_month', true);
+        $birthday_day= $this->input->post('birthday_day', true);
+        $birthday_year= $this->input->post('birthday_year', true);
+        
+        $customer_info['birth_date']=$birthday_year.'-'.$birthday_month.'-'.$birthday_day;
         
         $user_category_id = $this->session->userdata('user_category_id');
         
