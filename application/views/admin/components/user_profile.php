@@ -24,7 +24,7 @@
 <ul class="nav navbar-nav">
                   <li>
 
-                      <a href="<?php echo base_url()?>admin/apis/activate_voucher"  style="font-size: 15px"><i  class="glyphicon glyphicon-barcode" aria-hidden="true"></i> Activate Voucher</a>
+                      <a href="<?php echo base_url()?>admin/apis/activate_voucher"  style="font-size: 15px"><i  class="glyphicon glyphicon-barcode" aria-hidden="true"></i> Activate Payless Voucher</a>
 				 </li>
 </ul>
 

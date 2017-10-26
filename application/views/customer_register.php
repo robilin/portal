@@ -4,6 +4,7 @@
 <link href="<?php echo base_url(); ?>asset/css/style.css" rel="stylesheet">
 <link href="<?php echo base_url(); ?>asset/css/select2.css" rel="stylesheet" type="text/css" />
 <script src="<?php echo base_url(); ?>asset/js/select2.js"></script>
+<script src="<?php echo base_url(); ?>asset/js/ajax.js"></script>
 
 <style>
 
@@ -105,7 +106,7 @@ a {
 			</div>
 			<div class="col-xs-12 col-sm-6 col-md-6">
 			<div class="form-group">
-				<select required name="account_type"  style="width: 100%;" class="form-control" tabindex="4" id="opt">
+				<select requred name="account_type" class="form-control" tabindex="4" id="opt">
 				<option value="">
 				I am a...
 				</option>
@@ -123,11 +124,20 @@ a {
 			</div>
 			</div>
 			</div>
+			<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12" style="display: none" id="parent_id">
+					
+                        <div class="form-group">
+                                <input class="form-control" name="parent_id" placeholder="Type in landlord or partner reference" >
+                            </div>
+                        </div>
+             </div>
+                
 			
 			<div class="row">
 				<div class="col-xs-12 col-sm-6 col-md-6">
 			<div class="form-group">
-				<input type="text" name="phone" id="phone" class="form-control input-sm" placeholder="Mobile number" tabindex="5">
+				<input type="text" name="phone" id="phone_number" class="form-control input-sm" placeholder="Mobile number" tabindex="5">
 			</div></div>
 			<div class="col-xs-12 col-sm-6 col-md-6">
 			<div class="form-group">
@@ -474,11 +484,13 @@ $(function () {
 			$( "#signupForm" ).validate( {
 				rules: {
 					first_name: "required",
-					last_name: "required",
 					account_type: "required",
+					last_name: "required",
+					accout_type: "required",
 					birthday_year: "required",
 					birthday_month: "required",
 					birthday_day: "required",
+					phone: "required",
 					user_name: {
 						required: true,
 						minlength: 2
@@ -500,10 +512,12 @@ $(function () {
 				},
 				messages: {
 					first_name: "Please enter your firstname",
+					account_type: "Account type required",
 					last_name: "Please enter your lastname",
 					birthday_day: "Birth day required",
 					birthday_month: "Birth month required",
-					birthday_yea: "Birth year required",
+					birthday_year: "Birth year required",
+					phone: "Mobile number required",
 					user_name: {
 						required: "Please enter a username",
 						minlength: "Your username must consist of at least 6 characters"

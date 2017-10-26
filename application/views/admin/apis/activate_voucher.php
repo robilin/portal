@@ -30,7 +30,7 @@
       </div>
       
        <span class="input-group-btn">
-              <button type="submit" class="btn bg-blue" type="button" data-placement="top" data-toggle="tooltip">Activate Voucher</button>
+              <button type="submit" class="btn bg-blue" type="button" data-placement="top" data-toggle="tooltip">Activate Payless Voucher</button>
         </span>
       <!-- /.box -->
       </div>

@@ -580,12 +580,9 @@ class Customer extends Admin_Controller
     
     
     
-    /*** Add New or Update Borrower ***/
+    /*** Add New or update partner ***/
     public function save_partner($id = null)
     {
-        
-        
-        
         if ($id) { // if id
             
             $this->tbl_customer('customer_id');
@@ -600,10 +597,8 @@ class Customer extends Admin_Controller
             
             $registration_date= date("Y-m-d H:i:s");
         }
-        
-        
-        
-        //*************** patient Information **************
+         
+        //*************** partner Information **************
         
         $customer_info = $this->customer_model->array_from_post(array(
             'customer_account',
@@ -733,7 +728,7 @@ class Customer extends Admin_Controller
 
         $data['payments']=$this->payments_model->get_payment_details_by_id($id);
                 
-        //************* Retrieve customer ****************//
+        //************* Retrieve client ****************//
 
         if($id){
             $this->tbl_customer('customer_id');
@@ -879,6 +874,12 @@ class Customer extends Admin_Controller
         $user_data['approved']=1;
         $this->db->where('customer_id', $customer_id);
         $this->db->update('tbl_user', $user_data);
+        
+        //send alert
+        $message='Ndugu,'.$name.' Umesajiliwa PayLess imehakikiwa';
+        
+        $this->alert($customer_info['phone'],$message);
+        
         
         if($account==1){        
         $this->message->custom_success_msg('admin/customer/manage_tenants', 'Approved Successfully!');

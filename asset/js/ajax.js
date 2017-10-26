@@ -536,6 +536,8 @@ $(function() {
     });
 });
 
+
+
 //*********************************************
 //     Order payment method show hide
 //*********************************************
@@ -564,6 +566,32 @@ $(function() {
             $('#payment').hide();
         }
     });
+});
+
+//*********************************************
+//Order payment method show hide
+//*********************************************
+
+$(function() {
+$('#opt').change(function(){
+ var val = $( "#opt" ).val();
+
+ if(val == '1')
+ {
+     $('#parent_id').show();
+     $('#label_id').show();
+ }
+ else if (val == '2')
+ {
+     $('#parent_id').show();
+     $('#label_id').show();
+ }
+ else
+ {
+     $('#parent_id').hide();
+     $('#label_id').hide();
+ }
+});
 });
 
 

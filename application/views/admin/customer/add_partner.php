@@ -36,20 +36,25 @@
                      <div id="my-tab-content" class="tab-content">
                         <!-- ***************  General Tab Start ****************** -->
                         <div class="tab-pane <?php if(empty($tab)){ echo 'active';} ?>" id="general">
-
-                           <!-- .Names -->
+                        
+                         <div class="form-group">
+                              <label for="exampleInputEmail1">Business name or Company name</label> 
+                              <input type="text" placeholder="Business name" name="business_name"	onchange="check_phone(this.value)"	value="<?php
+                                 if (!empty($customer_info->business_name)) {
+                                   echo $customer_info->business_name;
+                                 }
+                                 ?>" class="form-control">
+                              <div style="color: #E13300" id="business_name"></div>
+                           </div>                           <!-- .Names -->
                      <div class="form-group">
                                    <label>First name<span class="required">*</span></label>
                                     <input type="text" placeholder="Last Name"  required name="first_name" value="<?php if (!empty($customer_info)) {
                                        echo $customer_info->first_name;
                                        }?>" class="form-control">
                                        </div>                                 
-                                  
-                                 
-                                  
-                                   <div class="form-group">
+                                    <div class="form-group">
                                    <label>Last name<span class="required">*</span></label>
-                                    <input type="text" placeholder="Last Name" required name="last_name" value="<?php if (!empty($customer_info)) {
+                                    <input type="text" placeholder="Last Name" required name="last_name" value="<?php if(!empty($customer_info)) {
                                        echo $customer_info->last_name;
                                        }?>" class="form-control">
                                        </div>
@@ -82,8 +87,9 @@
 			<div class="col-xs-12 col-sm-6 col-md-6">
 				<label for="month"><h5>Birthdate</h5></label>
 			</div>
+			
 			</div>
-                          <div class="row">
+	                          <div class="row">
 				<div class="col-xs-8 col-sm-4 col-md-4">
 					<div class="form-group">
 					 
@@ -348,16 +354,7 @@
                               ?>
                            "
                            id="optional">
-                           <!-- /.Business name -->
-                           <div class="form-group">
-                              <label for="exampleInputEmail1">Business name</label> 
-                              <input type="text" placeholder="Business name" name="business_name"	onchange="check_phone(this.value)"	value="<?php
-                                 if (!empty($customer_info->business_name)) {
-                                   echo $customer_info->business_name;
-                                 }
-                                 ?>" class="form-control">
-                              <div style="color: #E13300" id="business_name"></div>
-                           </div>
+                                                    
                            <div class="form-group">
                               <!-- hidden  old_path when update  -->
                               <input type="hidden" name="old_path"  value="<?php

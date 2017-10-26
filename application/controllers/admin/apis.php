@@ -52,7 +52,7 @@ class Apis extends Admin_Controller
            $data['voucher_number']=$voucher_no;
          }
     
-        $data['title'] = 'Activate Voucher';
+        $data['title'] = 'Activate Payless Voucher';
 		
         $data['subview'] = $this->load->view('admin/apis/activate_voucher', $data, true);
         $this->load->view('admin/_layout_main', $data);

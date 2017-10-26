@@ -59,13 +59,34 @@ class Customer_Register extends CI_Controller
     	$birthday_month= $this->input->post('birthday_month', true);
     	$birthday_day= $this->input->post('birthday_day', true);
     	$birthday_year= $this->input->post('birthday_year', true);
-        
-        //*************** patient Information **************
+    	$parent_reference= $this->input->post('parent_id', true);
+    	
+    	
+    	
+    	
+    	//check parent reference
+    	if(!empty($parent_reference)){
+    	$parent= $this->db->get_where('tbl_customer',array('customer_account'=>$parent_reference))->row();
+    	}
+    	
+    
+    	if(!empty($parent->user_id)){
+    	    if($parent->account_type==2 || $parent->account_type==3){
+    	    $parent_id=$parent->user_id;
+    	    }else{
+    	        $parent_id=0;
+    	    }
+    	}else{
+    	    $parent_id=0;
+    	}
+            	
+            //*************** patient Information **************
              
         $reg_info['first_name']=$first_name;
         $reg_info['last_name']=$last_name;
         //$reg_info['user_name']=$user_name;
         $reg_info['email']=$email;
+        $reg_info['parent_id']=$parent_id;
         $reg_info['phone']=$phone;
         $reg_info['registration_date']= date("Y-m-d H:i:s");
         $reg_info['birth_date']=$birthday_year.'-'.$birthday_month.'-'.$birthday_day;
@@ -85,7 +106,6 @@ class Customer_Register extends CI_Controller
         //create login access
         $name=$first_name.' '.$last_name;
         
-        $parent_id=0;
         $flag = 0;
         $user_category_id = 2;
         $user_id=null;

@@ -36,6 +36,16 @@
                      <div id="my-tab-content" class="tab-content">
                         <!-- ***************  General Tab Start ****************** -->
                         <div class="tab-pane <?php if(empty($tab)){ echo 'active';} ?>" id="general">
+                        
+                          <div class="form-group">
+                              <label for="exampleInputEmail1">Business name or Company name</label> 
+                              <input type="text" placeholder="Business name" name="business_name"	onchange="check_phone(this.value)"	value="<?php
+                                 if (!empty($customer_info->business_name)) {
+                                   echo $customer_info->business_name;
+                                 }
+                                 ?>" class="form-control">
+                              <div style="color: #E13300" id="business_name"></div>
+                           </div>
 
                            <!-- .Names -->
                      <div class="form-group">
@@ -350,15 +360,7 @@
                            "
                            id="optional">
                            <!-- /.Business name -->
-                           <div class="form-group">
-                              <label for="exampleInputEmail1">Business name</label> 
-                              <input type="text" placeholder="Business name" name="business_name"	onchange="check_phone(this.value)"	value="<?php
-                                 if (!empty($customer_info->business_name)) {
-                                   echo $customer_info->business_name;
-                                 }
-                                 ?>" class="form-control">
-                              <div style="color: #E13300" id="business_name"></div>
-                           </div>
+                    
                            <div class="form-group">
                               <!-- hidden  old_path when update  -->
                               <input type="hidden" name="old_path"  value="<?php
