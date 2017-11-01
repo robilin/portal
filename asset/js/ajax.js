@@ -594,6 +594,76 @@ $('#opt').change(function(){
 });
 });
 
+//*********************************************
+//payment options
+//*********************************************
+
+$(function() {
+$('#payment_options').change(function(){
+var val = $( "#payment_options" ).val();
+
+if(val == '1')
+{
+   $('#tigopesa').show();
+   $('#mpesa').hide();
+   $('#airtelmoney').hide();
+   $('#bank').hide();
+   $('#paypal').hide();
+   $('#card').hide();
+}
+else if (val == '2')
+{
+	   $('#tigopesa').hide();
+	   $('#mpesa').show();
+	   $('#airtelmoney').hide();
+	   $('#bank').hide();
+	   $('#paypal').hide();
+	   $('#card').hide();
+}else if (val == '3')
+{
+	   $('#tigopesa').hide();
+	   $('#mpesa').hide();
+	   $('#airtelmoney').show();
+	   $('#bank').hide();
+	   $('#paypal').hide();
+	   $('#card').hide();
+}else if (val == '4')
+{
+	   $('#tigopesa').hide();
+	   $('#mpesa').hide();
+	   $('#airtelmoney').hide();
+	   $('#bank').show();
+	   $('#paypal').hide();
+	   $('#card').hide();
+}else if (val == '5')
+{
+	   $('#tigopesa').hide();
+	   $('#mpesa').hide();
+	   $('#airtelmoney').hide();
+	   $('#bank').hide();
+	   $('#paypal').show();
+	   $('#card').hide();
+}else if (val == '6')
+{
+	   $('#tigopesa').hide();
+	   $('#mpesa').hide();
+	   $('#airtelmoney').hide();
+	   $('#bank').hide();
+	   $('#paypal').hide();
+	   $('#card').show();
+}
+else
+{
+	   $('#tigopesa').hide();
+	   $('#mpesa').hide();
+	   $('#airtelmoney').hide();
+	   $('#bank').hide();
+	   $('#paypal').hide();
+	   $('#card').hide();
+}
+});
+});
+
 
 //*********************************************
 //     Order Confirmation Method

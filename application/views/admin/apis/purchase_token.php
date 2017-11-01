@@ -1,6 +1,6 @@
-<cript src="<?php echo base_url(); ?>asset/js/ajax.js"></script>
 <link href="<?php echo base_url(); ?>asset/css/select2.css" rel="stylesheet" type="text/css" />
 <script src="<?php echo base_url(); ?>asset/js/select2.js"></script>
+<script src="<?php echo base_url(); ?>asset/js/ajax.js"></script>
 
  <style type="text/css">
 
@@ -89,7 +89,7 @@
             <div class="col-md-12">
                 <div class="box-body">
                 <div class="form-group">
-                        <select placeholder="Click here to select meter number..." style="width: 99%;" required name="phone[]"  class="labselector" multiple="multiple">
+                        <select placeholder="Click here to select meter number..." style="width: 99%;" required name="meter"  class="labselector">
                         
                         <?php  
                        			 $meter = $this->db->get('tbl_meter')->result();
@@ -121,11 +121,14 @@
         <div class="col-xs-12">
             <div class="col-md-12">
                 	<div class="form-group">
-						<select required name="payment_method" class="payment-method" style="width: 100%;">
+						<select required name="payment_method" id="payment_options" class="payment_options" style="width: 100%;">
 						    <option value=" ">Select Payment Method</option>
-  							<option value="1">Mobile Money</option
-     						<option value="4">Paypal/Card</option>
-     						<option value="5">Bank transfer</option>
+  							<option value="1">Tigopesa</option>
+     						<option value="2">Mpesa</option>
+     						<option value="3">Airtel money</option>
+     						<option value="4">Bank</option>
+     						<option value="5">Paypal</option>
+     						<option value="6">Card</option>
 					</select>
 					</div>
                 
@@ -136,7 +139,12 @@
     <div class="row setup-content" id="step-3">
         <div class="col-xs-12">
             <div class="col-md-12">
-                <h3> Step 3</h3>
+                <p style="display: none" id="tigopesa">Tigopesa</p>
+                <p style="display: none" id="mpesa">Mpesa</p>
+                <p style="display: none" id="airtelmoney">Airtel money</p>
+                <p style="display: none" id="bank">Bank</p>
+                <p style="display: none" id="paypal"> Paypal processor</p>
+                <p style="display: none" id="card">Card processors</p>
                 <button class="btn btn-success btn pull-right" type="submit">Finish!</button>
             </div>
         </div>
@@ -171,7 +179,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-  $(".payment-method").select2();
+  $(".payment_options").select2();
 });
 </script>
 
