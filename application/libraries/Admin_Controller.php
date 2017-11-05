@@ -94,62 +94,9 @@ class Admin_Controller extends MY_Controller
         $this->global_model->_order_by = 'alert_id';
         $alert_config = $this->global_model->get_by(array("alert_type"=> 1), false);
                 
-        foreach($alert_config as $value) {
-        	$days=$value->days;
-        }
-               
+    }  
          
-        //notify bellow Quantity
-        $this->global_model->_table_name = 'tbl_inventory';
-        $this->global_model->_order_by = 'inventory_id';
-        $product_inventory = $this->global_model->get();
-
-        foreach($product_inventory as $v_inventory){
-            if($v_inventory->notify_quantity >= $v_inventory->product_quantity){
-                $notify_product[] = $this->global_model->get_product_bellow_qty($v_inventory->product_id ,$v_inventory->product_quantity);
-            }
-          
-            
-            //add configured days to current timestamp to get all expiring in more than today date
-            if (!empty($days)) {
-            	$timestamp=strtotime('now')+$days*86400;
-            }else{
-            $timestamp=strtotime('now');
-            }
-            
-           
-                  
-            if(strtotime($v_inventory->expire_date)<=($timestamp)&& !empty($v_inventory->expire_date)){
-            	            	
-                $notify_expire[] = $this->global_model->get_product_expiring($v_inventory->product_id,date("Y/m/d",$timestamp));
-                
-                  }
-              
-        }
         
-        
-        
-    
-        if(!empty($notify_product)) {
-            $_SESSION["notify_product"] = $notify_product;
-        }else{
-            $_SESSION["notify_product"]=null;
-        }
-        
-            if(!empty($notify_expire) ) {
-            $_SESSION["notify_expire"] = $notify_expire;
-        }else{
-            $_SESSION["notify_expire"]=null;
-        }
-          
-
-        //Pending Order
-        $this->global_model->_table_name = 'tbl_order';
-        $this->global_model->_order_by = 'order_id';
-        $pending_order = $this->global_model->get_by(array("order_status"=> 0), false);
-        $_SESSION["pending_order"] = $pending_order;
-
-    }
 
     //======================================================================
     // ALL TABLE DECLARATION
@@ -157,15 +104,17 @@ class Admin_Controller extends MY_Controller
 
     /* product category and sub table start */
 
-    public function tbl_category($order_by){
-        $this->global_model->_table_name = 'tbl_category';
-        $this->global_model->_order_by = $order_by;
-        $this->global_model->_primary_key = 'category_id';
-    }
+
     public function tbl_asset_brand($order_by){
         $this->global_model->_table_name = 'tbl_asset_brand';
         $this->global_model->_order_by = $order_by;
         $this->global_model->_primary_key = 'asset_brand_id';
+    }
+    
+   public function tbl_loan_comments($order_by){
+        $this->global_model->_table_name = 'tbl_loan_comments';
+        $this->global_model->_order_by = $order_by;
+        $this->global_model->_primary_key = 'comment_id';
     }
     
  public function tbl_asset_modal($order_by){
@@ -174,28 +123,55 @@ class Admin_Controller extends MY_Controller
         $this->global_model->_primary_key = 'asset_modal_id';
     }
     
-    public function tbl_subcategory($order_by){
+ public function tbl_current_stock($order_by){
+        $this->global_model->_table_name = 'tbl_current_stock';
+        $this->global_model->_order_by = $order_by;
+        $this->global_model->_primary_key = 'stock_id';
+    }
+    
+ public function tbl_user($order_by){
+    $this->user_model->_table_name = 'tbl_user'; // table name
+    $this->global_model->_order_by = $order_by;
+    $this->user_model->_primary_key = 'user_id'; // $id
+ }
+    
+ public function tbl_customer_invoice_details($order_by){
+        $this->global_model->_table_name = 'tbl_customer_invoice_details';
+        $this->global_model->_order_by = $order_by;
+        $this->global_model->_primary_key = 'customer_invoice_id';
+    }
+    
+ public function tbl_invoice_set($order_by){
+        $this->global_model->_table_name = 'tbl_invoice_set';
+        $this->global_model->_order_by = $order_by;
+        $this->global_model->_primary_key = 'invoice_set_id';
+    }
+    
+ public function tbl_subcategory($order_by){
         $this->global_model->_table_name = 'tbl_subcategory';
         $this->global_model->_order_by = $order_by;
         $this->global_model->_primary_key = 'subcategory_id';
     }
 
-    /* product tax table */
-
-    public function tbl_tax($order_by){
-        $this->global_model->_table_name = 'tbl_tax';
+ public function tbl_loan_details($order_by){
+        $this->global_model->_table_name = 'tbl_loan_details';
         $this->global_model->_order_by = $order_by;
-        $this->global_model->_primary_key = 'tax_id';
+        $this->global_model->_primary_key = 'loan_details_id';
     }
     
-    public function tbl_current_stock($order_by){
-        
-        $this->global_model->_table_name = 'tbl_current_stock';
-        $this->global_model->_order_by = $order_by;
-        $this->global_model->_primary_key = 'stock_id';
-    }
 
- /* product alerts configuration table */
+ public function tbl_mobile_payments($order_by){
+        $this->global_model->_table_name = 'tbl_mobile_payments';
+        $this->global_model->_order_by = $order_by;
+        $this->global_model->_primary_key = 'id';
+    }
+    /* product tax table */
+
+ public function tbl_loan_schedule($order_by){
+        $this->global_model->_table_name = 'tbl_loan_schedule';
+        $this->global_model->_order_by = $order_by;
+        $this->global_model->_primary_key = 'schedule_id';
+    }
 
     public function  tbl_alerts_config($order_by){
         $this->global_model->_table_name = 'tbl_alerts_config';
@@ -203,30 +179,22 @@ class Admin_Controller extends MY_Controller
         $this->global_model->_primary_key = 'alert_id';
     }
     
-   
-    /* tag table */
 
-    public function tbl_tag($order_by){
-        $this->global_model->_table_name = 'tbl_tag';
+    public function  tbl_loan($order_by){
+        $this->global_model->_table_name = 'tbl_loan';
         $this->global_model->_order_by = $order_by;
-        $this->global_model->_primary_key = 'tag_id';
+        $this->global_model->_primary_key = 'loan_id';
     }
     
- public function tbl_giftcards($order_by){
-        $this->global_model->_table_name = 'tbl_giftcards';
-        $this->global_model->_order_by = $order_by;
-        $this->global_model->_primary_key = 'giftcard_id';
-    }
 
-    /* supplier table */
-
-    public function tbl_supplier($order_by, $order=null){
-        $this->global_model->_table_name = 'tbl_supplier';
+    
+  public function tbl_loan_repayment($order_by){
+        $this->global_model->_table_name = 'tbl_loan_repayment';
         $this->global_model->_order_by = $order_by;
-        $this->global_model->_order = $order;
-        $this->global_model->_primary_key = 'supplier_id';
+        $this->global_model->_primary_key = 'repayment_id';
     }
-  /* supplier table */
+    
+
 
     public function tbl_vendor($order_by, $order=null){
         $this->global_model->_table_name = 'tbl_vendor';
@@ -234,87 +202,20 @@ class Admin_Controller extends MY_Controller
         $this->global_model->_order = $order;
         $this->global_model->_primary_key = 'vendor_id';
     }
-
-    /* product table start */
-
-    public function tbl_product($order_by){
-        $this->global_model->_table_name = 'tbl_product';
+    
+ 
+ 	public function tbl_meter($order_by){
+        $this->global_model->_table_name = 'tbl_meter';
         $this->global_model->_order_by = $order_by;
-        $this->global_model->_primary_key = 'product_id';
+        $this->global_model->_primary_key = 'meter_id';
     }
+    
     public function tbl_asset($order_by){
         $this->global_model->_table_name = 'tbl_asset';
         $this->global_model->_order_by = $order_by;
         $this->global_model->_primary_key = 'asset_id';
     }
-    public function tbl_product_image($order_by){
-        $this->global_model->_table_name = 'tbl_product_image';
-        $this->global_model->_order_by = $order_by;
-        $this->global_model->_primary_key = 'product_image_id';
-    }
-    public function tbl_product_price($order_by){
-        $this->global_model->_table_name = 'tbl_product_price';
-        $this->global_model->_order_by = $order_by;
-        $this->global_model->_primary_key = 'product_price_id';
-    }
-    public function tbl_special_offer($order_by){
-        $this->global_model->_table_name = 'tbl_special_offer';
-        $this->global_model->_order_by = $order_by;
-        $this->global_model->_primary_key = 'special_offer_id';
-    }
-    public function tbl_tier_price($order_by){
-        $this->global_model->_table_name = 'tbl_tier_price';
-        $this->global_model->_order_by = $order_by;
-        $this->global_model->_primary_key = 'tier_price_id';
-    }
-    public function tbl_inventory($order_by){
-        $this->global_model->_table_name = 'tbl_inventory';
-        $this->global_model->_order_by = $order_by;
-        $this->global_model->_primary_key = 'inventory_id';
-    }
-    public function tbl_attribute($order_by){
-        $this->global_model->_table_name = 'tbl_attribute';
-        $this->global_model->_order_by = $order_by;
-        $this->global_model->_primary_key = 'attribute_id';
-    }
- public function tbl_bom($order_by){
-        $this->global_model->_table_name = 'tbl_bom';
-        $this->global_model->_order_by = $order_by;
-        $this->global_model->_primary_key = 'bom_id';
-    }
-    public function tbl_attribute_set($order_by)
-    {
-        $this->global_model->_table_name = 'tbl_attribute_set';
-        $this->global_model->_order_by = $order_by;
-        $this->global_model->_primary_key = 'attribute_set_id';
-    }
 
-    public function tbl_product_tag($order_by){
-        $this->global_model->_table_name = 'tbl_product_tag';
-        $this->global_model->_order_by = $order_by;
-        $this->global_model->_primary_key = 'product_tag_id';
-    }
-
-	 public function tbl_customer_invoice_details($order_by){
-        $this->global_model->_table_name = 'tbl_customer_invoice_details';
-        $this->global_model->_order_by = $order_by;
-        $this->global_model->_primary_key = 'customer_invoice_id';
-    }
-
-    /* purchase table start */
-
-    public function tbl_purchase($order_by, $order=null){
-        $this->global_model->_table_name = 'tbl_purchase';
-        $this->global_model->_order_by = $order_by;
-        $this->global_model->_order = $order;
-        $this->global_model->_primary_key = 'purchase_id';
-    }
-
-    public function tbl_purchase_product($order_by){
-        $this->global_model->_table_name = 'tbl_purchase_product';
-        $this->global_model->_order_by = $order_by;
-        $this->global_model->_primary_key = 'purchase_product_id';
-    }
 
     /* customer table */
 
@@ -323,33 +224,11 @@ class Admin_Controller extends MY_Controller
         $this->global_model->_order_by = $order_by;
         $this->global_model->_primary_key = 'customer_id';
     }
-
-    /* damage product */
-
-    public function tbl_damage_product($order_by){
-        $this->global_model->_table_name = 'tbl_damage_product';
+    
+   public function tbl_loan_groups($order_by){
+        $this->global_model->_table_name = 'tbl_loan_groups';
         $this->global_model->_order_by = $order_by;
-        $this->global_model->_primary_key = 'damage_product_id';
-    }
-
-    /* tbl_order */
-
-    public function tbl_order($order_by){
-        $this->global_model->_table_name = 'tbl_order';
-        $this->global_model->_order_by = $order_by;
-        $this->global_model->_primary_key = 'order_id';
-    }
-
-    public function tbl_order_details($order_by){
-        $this->global_model->_table_name = 'tbl_order_details';
-        $this->global_model->_order_by = $order_by;
-        $this->global_model->_primary_key = 'order_details_id';
-    }
-
-    public function tbl_invoice($order_by){
-        $this->global_model->_table_name = 'tbl_invoice';
-        $this->global_model->_order_by = $order_by;
-        $this->global_model->_primary_key = 'invoice_id';
+        $this->global_model->_primary_key = 'loan_group_id';
     }
 
     public function tbl_campaign($order_by, $order=null){
@@ -359,6 +238,18 @@ class Admin_Controller extends MY_Controller
         $this->global_model->_primary_key = 'campaign_id';
     }
         
+    public function tbl_sms_sent($order_by){
+        $this->global_model->_table_name = 'tbl_sms_sent';
+        $this->global_model->_order_by = $order_by;
+        $this->global_model->_primary_key = 'id';
+    }
+    
+    public function tbl_smpp_hits($order_by){
+        $this->global_model->_table_name = 'tbl_smpp_hits';
+        $this->global_model->_order_by = $order_by;
+        $this->global_model->_primary_key = 'id';
+    }
+    
     public function tbl_campaign_result($order_by, $order=null){
         $this->global_model->_table_name = 'tbl_campaign_result';
         $this->global_model->_order_by = $order_by;

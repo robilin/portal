@@ -37,10 +37,34 @@ class User_Model extends MY_Model
         $post = new stdClass();
         $post->user_name = '';
         $post->name = '';
+       
         $post->email = '';
         $post->flag = 3;
         $post->employee_login_id = '';
 
         return $post;
+    }
+    
+   public function get_user_by_job_account_type($account_type)
+    {
+    	
+        $this->db->select('tbl_user.*', false);
+        $this->db->from('tbl_user');
+        $this->db->where('tbl_user.job_tittle_id',$account_type);
+        $query_result = $this->db->get();
+        $result = $query_result->result();
+
+        return $result;
+    }
+    
+    public function get_users()
+    {
+        
+        $this->db->select('tbl_user.*', false);
+        $this->db->from('tbl_user');
+        $query_result = $this->db->get();
+        $result = $query_result->result();
+        
+        return $result;
     }
 }

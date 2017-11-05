@@ -40,17 +40,60 @@ class Customer_Model extends MY_Model
 
         return $result;
     }
+    
+    
+    public function get_customers()
+    {
+        $this->db->select('tbl_customer.*', false);
+        $this->db->from('tbl_customer');
+     
+ 		$query_result = $this->db->get();
+        $result = $query_result->result();
+        return $result;
+    }
+    
+ public function get_customers_by_id($customer_id)
+    {
+        $this->db->select('tbl_customer.*', false);
+        $this->db->from('tbl_customer');
+        $this->db->where('customer_id', $customer_id);
+ 		$query_result = $this->db->get();
+        $result = $query_result->row();
+        return $result;
+    }
+    
+    public function get_customers_by_account_type($account_type)
+    {
+        $this->db->select('tbl_customer.*', false);
+        $this->db->from('tbl_customer');
+        $this->db->where('account_type', $account_type);
+        $query_result = $this->db->get();
+        $result = $query_result->result();
+        return $result;
+    }
+    
+    public function get_customers_by_account_parent($parent_type,$account_type)
+    {
+        $this->db->select('tbl_customer.*', false);
+        $this->db->from('tbl_customer');
+        $this->db->where('parent_id', $parent_type);
+        $this->db->where('account_type', $account_type);
+        $query_result = $this->db->get();
+        $result = $query_result->result();
+        return $result;
+    }
+     
 
-//    public function check_customer_phone($phone, $customer_id)
-//    {
-//        $this->db->select('tbl_customer.*', false);
-//        $this->db->from('tbl_customer');
-//        $this->db->where('customer_id !=', $customer_id);
-//        $this->db->where('phone', $phone);
-//        $query_result = $this->db->get();
-//        $result = $query_result->row();
-//        return $result;
-//    }
+   public function check_customer_phone($phone, $customer_id)
+   {
+       $this->db->select('tbl_customer.*', false);
+       $this->db->from('tbl_customer');
+       $this->db->where('customer_id !=', $customer_id);
+       $this->db->where('phone', $phone);
+       $query_result = $this->db->get();
+       $result = $query_result->row();
+       return $result;
+   }
 
     public function get_new_customer_detail()
     {

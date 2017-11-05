@@ -49,6 +49,33 @@ class Report extends Admin_Controller
         $data['subview'] = $this->load->view('admin/report/sales_report', $data, true);
         $this->load->view('admin/_layout_main', $data);
     }
+    
+    /*** Sales Report ***/
+    public function due_loans_report()
+    {
+        $data['title'] = 'View Due Loans';
+
+        $start_date = $this->input->post('start_date', true);
+        $end_date = $this->input->post('end_date', true);
+
+        // report date
+        $data['start_date'] = date('Y-m-d', strtotime($start_date));
+        $data['end_date'] = date('Y-m-d', strtotime($end_date));
+        // invoice information
+        $invoice = $this->report_model->get_due_loans_by_date($data['start_date'], $data['end_date']);
+
+        if (!empty($invoice)) {
+            $this->tbl_order_details('order_details_id');
+            foreach ($invoice as $v_invoice) {
+                $data['invoice_details'][$v_invoice->invoice_no] = $this->global_model->get_by(array('order_id' => $v_invoice->order_id),
+                    false);
+                $data['order'][] = $v_invoice;
+            }
+        }
+
+        $data['subview'] = $this->load->view('admin/loan/due_loans', $data, true);
+        $this->load->view('admin/_layout_main', $data);
+    }
 
     /*** Generate PDF Sales Report ***/
     public function pdf_sales_report()
@@ -166,7 +193,6 @@ class Report extends Admin_Controller
         $data['title'] = 'Stock Summary Report';
         $data['stock'] = $this->db->select('tbl_product.*, tbl_inventory.product_quantity, tbl_product_price.buying_price')
             ->from('tbl_product')
-            ->where('can_be_sold',1)
             ->join('tbl_inventory', 'tbl_inventory.product_id = tbl_product.product_id', 'left')
             ->join('tbl_product_price', 'tbl_product_price.product_id = tbl_product.product_id', 'left')
             ->get()
@@ -174,22 +200,6 @@ class Report extends Admin_Controller
 
 
         $data['subview'] = $this->load->view('admin/report/stock', $data, true);
-        $this->load->view('admin/_layout_main', $data);
-    }
-    
-    function material_report()
-    {
-        $data['title'] = 'Materials Summary Report';
-        $data['stock'] = $this->db->select('tbl_product.*, tbl_inventory.product_quantity, tbl_product_price.buying_price')
-            ->from('tbl_product')
-            ->where('can_be_sold',0)
-            ->join('tbl_inventory', 'tbl_inventory.product_id = tbl_product.product_id', 'left')
-            ->join('tbl_product_price', 'tbl_product_price.product_id = tbl_product.product_id', 'left')
-            ->get()
-            ->result();
-
-
-        $data['subview'] = $this->load->view('admin/report/material', $data, true);
         $this->load->view('admin/_layout_main', $data);
     }
 

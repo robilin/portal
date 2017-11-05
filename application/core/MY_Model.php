@@ -127,7 +127,7 @@ class MY_Model extends CI_Model
     {
         $config['upload_path'] = 'img/uploads/';
         $config['allowed_types'] = 'gif|jpg|jpeg|png';
-        $config['max_size'] = '2024';
+        $config['max_size'] = '10024';
 
         $this->load->library('upload', $config);
         $this->upload->initialize($config);
@@ -153,7 +153,7 @@ class MY_Model extends CI_Model
     {
         $config['upload_path'] = 'img/uploads/';
         $config['allowed_types'] = 'pdf|docx|doc|gif|jpg|jpeg|png';
-        $config['max_size'] = '2048';
+        $config['max_size'] = '10048';
 
         $this->load->library('upload', $config);
         $this->upload->initialize($config);

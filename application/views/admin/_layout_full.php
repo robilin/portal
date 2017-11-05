@@ -1,4 +1,4 @@
-<?php $this->load->view('admin/components/header'); ?>
+<?php $this->load->view('admin/components/admin-header'); ?>
 <body class="skin-blue" data-baseurl="<?php echo base_url(); ?>">
     <div class="wrapper">
         

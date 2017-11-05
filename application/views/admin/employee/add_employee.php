@@ -22,13 +22,11 @@
 
                     <div class="row">
                         <div class="col-md-6 border-right">
-                            <div class="box-body">
-
-
+                            <div class="box-body">                             
 
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Name <span class="required">*</span></label>
-                                    <input type="text" placeholder="First" name="name" class="form-control"
+                                    <input type="text" placeholder="Full name" name="name" class="form-control"
                                         value="<?php if(!empty($employee_login_details->name)){
                                             echo $employee_login_details->name;
                                         } ?>"
@@ -82,7 +80,8 @@
                                                 if($employee_login_details->flag !=1 ){
                                                     echo 'required';
                                                 }else{
-                                                    echo 'disabled';
+                                                   echo 'disabled';
+                                                   // echo 'required';
                                                 }
                                             }else{
                                                 echo 'required';

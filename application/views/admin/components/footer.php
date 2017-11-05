@@ -1,8 +1,13 @@
- 
-<footer class="main-footer">
-      
-        <strong>Copyright &copy; <?php echo date("Y") ?> <a href="http://xchangewallet.com">xchange wallet</a>.</strong> All rights reserved.
-      </footer>
+<div class="fh5co-copyright animate-box">
+                <div class="container">
+                    <div class="row">
+                       <div class="col-md-4 col-md-offset-5">
+                            <p class="fh5co-left"><small>&copy; <?php echo date('Y') ?> <a href="index.html">Payless</a>&trade; All Rights Reserved.</small></p>
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
       
  </div><!-- ./wrapper -->
 
@@ -39,12 +44,43 @@
 <script src="<?php echo base_url(); ?>asset/js/morris/morris.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url(); ?>asset/js/morris/raphael.min.js" type="text/javascript"></script>
 
-
-    <script>
+<script type="text/javascript">
     $(document).ready(function() {
-        $('#dataTables-example').dataTable();
+
+    	$(document).ready(function() {
+            $('#dataTables-example').dataTable();
+        });
+
+    	
+        $('#datatable').dataTable({
+				processing:true,
+            }
+                );
+        $('#datatable-keytable').DataTable({
+            keys: true,
+        
+        });
+        $('#datatable-responsive').DataTable();
+        $('#datatable-scroller').DataTable({
+            ajax: "js/datatables/json/scroller-demo.json",
+            deferRender: true,
+            scrollY: 380,
+            scrollCollapse: true,
+            scroller: true
+
+        });
+        var table = $('#datatable-fixed-header').DataTable({
+            fixedHeader: true
+        });
+
+
+
     });
-    </script>
+
+    TableManageButtons.init();
+	cartButtons.init();
+</script>
+   
 
 	<script>
 		var handleDataTableButtons = function() {
@@ -114,34 +150,7 @@
 
 
 	</script>
-<script type="text/javascript">
-    $(document).ready(function() {
 
-        $('#datatable').dataTable();
-        $('#datatable-keytable').DataTable({
-            keys: true,
-
-        });
-        $('#datatable-responsive').DataTable();
-        $('#datatable-scroller').DataTable({
-            ajax: "js/datatables/json/scroller-demo.json",
-            deferRender: true,
-            scrollY: 380,
-            scrollCollapse: true,
-            scroller: true
-
-        });
-        var table = $('#datatable-fixed-header').DataTable({
-            fixedHeader: true
-        });
-
-
-
-    });
-
-    TableManageButtons.init();
-	cartButtons.init();
-</script>
 
 
 

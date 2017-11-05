@@ -1,7 +1,6 @@
-<?php $this->load->view('admin/components/header'); ?>
-<body class="skin-blue" data-baseurl="<?php echo base_url(); ?>">
-    <div class="wrapper">
-        
+<?php $this->load->view('admin/components/admin-header'); ?>
+<body class="skin-green" data-baseurl="<?php echo base_url(); ?>">
+    <div class="wrapper">        
     <?php $this->load->view('admin/components/user_profile'); ?>
        
         <!-- Left side column. contains the logo and sidebar -->
@@ -11,7 +10,7 @@
           <!-- Sidebar user panel -->
         <?php $this->load->view('admin/components/navigation'); ?>
 
-                  </section>
+         </section>
         <!-- /.sidebar -->
       </aside>
 

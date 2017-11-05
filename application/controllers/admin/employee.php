@@ -31,7 +31,9 @@ class Employee extends Admin_Controller
         } else {
             $data['employee_id'] = null;
         }
-
+        
+  
+        
         $this->user_model->_table_name = 'tbl_menu';
         $this->user_model->_order_by = 'menu_id';
         $menu_info = $this->user_model->get();
@@ -103,12 +105,14 @@ class Employee extends Admin_Controller
     {
 
 
-        $data = $this->user_model->array_from_post(array('user_name', 'name', 'email', 'flag'));
-
+        $data = $this->user_model->array_from_post(array('user_name','name', 'email', 'flag'));
 
         if($data['flag'] == ''){
             $data['flag']=1;
         }
+        
+        $data['account_type']=4;
+        $data['approved']=1; 
 
         $employee_id = $this->input->post('employee_id');
         $password_flag = $this->input->post('password_flag');
