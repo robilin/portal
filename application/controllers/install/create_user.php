@@ -5,11 +5,11 @@ if (!defined('BASEPATH')) {
 }
 
 /*
- *	@author : Venance Edson
- *  @support: support@xchangewallet.com
- *	date	: 05 June, 2017
+ *	@author : CodesLab
+ *  @support: support@codeslab.net
+ *	date	: 05 June, 2015
  *	Easy Inventory
- *	http://www.xchangewallet.com
+ *	http://www.codeslab.net
  *  version: 1.0
  */
 

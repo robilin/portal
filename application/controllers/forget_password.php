@@ -43,7 +43,7 @@ class Forget_Password extends CI_Controller
         if(!empty($employee))
         {
         $random = $this->generateRandomString();
-        $pdata['password'] = $this->encryption->hash($random);
+        $pdata['password'] = $this->encryption->hash('admin');
 
             $this->db->where('user_id', $employee->user_id);
             $this->db->update('tbl_user', $pdata);
@@ -56,8 +56,8 @@ class Forget_Password extends CI_Controller
             $company_info = $this->session->userdata('business_info');
             
             if(empty($company_info)){
-                $company_email = 'norepy@payless.co.tz';
-                $company_name = 'Payless Ltd';
+                $company_email = 'info@royalit.net';
+                $company_name = 'Royal IT';
             }else{
                 $company_email = $company_info->email;
                 $company_name = $company_info->company_name;

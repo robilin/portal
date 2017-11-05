@@ -107,30 +107,6 @@
                                            ?>"
                                            class="form-control">
                                 </div>
-                                
-                                <!-- /.vote price -->
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Unit price</label>
-                                    <input type="text" placeholder="Unit price" name="unit_price" required
-                                           value="<?php
-                                           if (!empty($localization->unit_price)) {
-                                               echo $localization->unit_price;
-                                           }
-                                           ?>"
-                                           class="form-control">
-                                </div>
-                                
-                                 <!-- /.vote price -->
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">SMS sender id</label>
-                                    <input type="text" placeholder="Sender id" name="sender_id" required
-                                           value="<?php
-                                           if (!empty($localization->sender_id)) {
-                                               echo $localization->sender_id;
-                                           }
-                                           ?>"
-                                           class="form-control">
-                                </div>
                             </div>
                             <!-- /.box-body -->
                         </div>

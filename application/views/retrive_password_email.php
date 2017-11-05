@@ -17,8 +17,8 @@
     <tr>
         <td height="31" valign="top" style="padding:20px">
             <h2>Your New Password</h2>
-            <p>Hi,<br />
-                Your System <b>Generate</b> New password is below:<br><br></p>
+            <p>Hi, Alex<br />
+                Your System <b>Generate</b> New password is bellow:<br><br></p>
 
             <p><strong> Username:</strong> <?php echo $username ?>
                 <br/>

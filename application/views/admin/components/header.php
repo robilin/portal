@@ -12,7 +12,6 @@
         <link href="<?php echo base_url(); ?>asset/css/bootstrap.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url(); ?>asset/css/admin.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url(); ?>asset/css/custom.css" rel="stylesheet" type="text/css" />
-        <link href="<?php echo base_url(); ?>asset/css/style.css" rel="stylesheet" type="text/css" />
         <!-- Date and Time Picker CSS -->
         <link href="<?php echo base_url(); ?>asset/css/datepicker.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url(); ?>asset/css/timepicker.css" rel="stylesheet" type="text/css" />
@@ -35,7 +34,7 @@
         <script src="<?php echo base_url(); ?>asset/js/html5shiv.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>asset/js/respond.min.js" type="text/javascript"></script>
         <![endif]-->
-        <script src="<?php echo base_url(); ?>asset/js/jquery.min.js"></script>
+        <script src="<?php echo base_url(); ?>asset/js/jquery-1.10.2.min.js"></script>
         <!-- ALl Custom Scripts -->
         <script src="<?php echo base_url(); ?>asset/js/admin.js"></script>
 

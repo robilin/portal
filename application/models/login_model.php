@@ -36,11 +36,12 @@ class Login_Model extends MY_Model
         $this->_table_name = 'tbl_user';
         $this->_order_by = 'user_id';
 
-        $user = $this->get_by(array('user_name' => $this->input->post('user_name'),'password' => $this->hash($this->input->post('password')),'approved'=>1 ), true);
-        
+        $user = $this->get_by(array(
+                'user_name' => $this->input->post('user_name'),
+                'password' => $this->hash($this->input->post('password')),
+                    ), true);
 
-
-        if (count($user)){
+        if (count($user)) {
             $data = array(
                     'user_name' => $user->user_name,
                     'name' => $user->name,
@@ -50,15 +51,7 @@ class Login_Model extends MY_Model
                     'user_type' => $user->flag,
                     'user_pic' => $user->filename,
                     'url' => 'admin/dashboard',
-                    'user_category_id'=>$user->user_category_id,
-                    'account_type'=>$user->account_type,
                 );
-            
-            $customer=$this->db->get_where('tbl_customer',array('user_id'=>$user->user_id))->result();
-            
-            foreach ($customer as $v_customer) {
-            	$data['customer_id']=$v_customer->customer_id;
-            }
             $this->session->set_userdata($data);
         }
     }

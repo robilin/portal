@@ -41,7 +41,7 @@ class Login extends MY_Controller
             if ($this->login_model->login() == true) {
                 redirect($dashboard);
             } else {
-                $this->session->set_flashdata('error', 'That Username/password combination does not exist or ');
+                $this->session->set_flashdata('error', 'That Username/password combination does not exist');
                 redirect('login', 'refresh');
             }
         }

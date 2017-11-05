@@ -211,11 +211,11 @@ class Settings extends Admin_Controller
         $this->global_model->delete($id);
         $this->message->delete_success('admin/settings/alert');
     }
-     
+
+
     public function save_localization($id = null){
-        
-        $data = $this->settings_model->array_from_post(array('timezone', 'country', 'date_format','currency_format','currency','language','unit_price','sender_id'));
-        
+        $data = $this->settings_model->array_from_post(array('timezone', 'country', 'date_format','currency_format','currency','language'));
+
         if($id==null){
             $this->db->insert('tbl_localization', $data);
         }else{
@@ -223,62 +223,6 @@ class Settings extends Admin_Controller
             $this->db->update('tbl_localization', $data);
         }
         $this->message->save_success('admin/settings/localisation');
-    }
-    
-    /*** Create branch ***/
-    public function branch($id = null)
-    {
-        $this->settings_model->_table_name = 'tbl_branch';
-        $this->settings_model->_order_by   = 'branch_id';
-        $data['all_branch']                = $this->settings_model->get();
-        // edit operation of branch
-        if (!empty($id)) { // if branch id exist
-            $where            = array(
-                'branch_id' => $id
-            );
-            $data['branch_info'] = $this->settings_model->check_by($where, 'tbl_branch');
-            if (empty($data['branch_info'])) { // empty alert
-                // massage
-                $this->message->norecord_found('admin/settings/branch');
-            }
-        }
-        //view page
-        $data['title']   = 'Create Branch';
-        $data['subview'] = $this->load->view('admin/settings/branch', $data, true); // sub view
-        $this->load->view('admin/_layout_main', $data); // main page
-    }
-    
-    public function save_branch($id = null)
-    {
-        $this->settings_model->_table_name  = 'tbl_branch';
-        $this->settings_model->_primary_key = 'branch_id';
-        $data['branch_name']              = $this->input->post('branch_name', true);
-        $data['branch_location']              = $this->input->post('branch_location', true);
-        // update branch
-        $where                                = array(
-            'branch_name' => $data['branch_name']
-        );
-        // duplicate check
-        if (!empty($id)) {
-            $branch_id = array(
-                'branch_id !=' => $id
-            );
-        } else {
-            $branch_id = null;
-        }
-        $check_branch = $this->settings_model->check_update('tbl_branch', $where, $branch_id);
-        if (!empty($check_branch)) { // if exist
-            $type    = 'error';
-            $message = 'Branch Information Already Exist';
-        } else { // save and update query
-            $this->settings_model->save($data, $id); //save and update
-            // massage for employee
-            $type    = 'success';
-            $message = 'Branch Information Successfully Saved';
-        }
-        //redirect users to view page
-        set_message($type, $message);
-        redirect('admin/settings/branch');
     }
 
 
@@ -324,86 +268,7 @@ class Settings extends Admin_Controller
 
         return $timezoneList;
     }
-/*** Create job_tittle ***/
-    public function client_access($id = null)
-    {
-        $this->settings_model->_table_name = 'tbl_customer_menu';
-        $this->settings_model->_order_by = 'customer_menu_id';
-        $data['customer_menu'] = $this->settings_model->get();
-        // edit operation of job_tittle
-        if (!empty($id)) { // if job_tittle id exist
-            $where = array('customer_menu_id' => $id);
-            $data['customer_menu'] = $this->settings_model->check_by($where, 'tbl_customer_menu');
 
-            if (empty($data['customer_menu'])) { // empty alert
-                // massage
-                $this->message->norecord_found('admin/settings/client_access');
-            }
-        }
-
-        //view page
-        $data['title'] = 'Create Access';
-  
-        $data['subview'] = $this->load->view('admin/settings/client_access', $data, true); // sub view
-        $this->load->view('admin/_layout_main', $data); // main page
-    }
-     /*** Save job_tittle ***/
-    public function save_client_access($id = null)
-    {
-   
-        $menu_id = $this->input->post('menu_id', true);
-          
-        
-        for ($i = 0; $i < sizeof($menu_id); $i++) {
-            if ($menu_id[$i] != null) {
-                $data['menu_id']   =    $menu_id[$i];
-                $data['menu_description'] =  $menu_id[$i];
-                
-                $this->settings_model->_table_name = 'tbl_customer_menu';
-        		$this->settings_model->_order_by = 'customer_menu_id';
-        	
-                $this->settings_model->save($data);
-                
-                $type    = 'success';
-                $message = 'Information Successfully Saved';
-            }
-        }
-        $this->message->custom_success_msg('admin/settings/client_access', $message);
-    
-    }
-    
-
-    /*** job_tittle Delete ***/
-    public function delete_customer_menu($id)
-    {
-        $this->settings_model->_table_name = 'tbl_customer_menu';
-        $this->settings_model->_order_by = 'customer_menu_id';
-        $where = array('customer_menu_id' => $id);
-        $check_menu = $this->settings_model->get_by($where, false);
-        
-        $where2 = array('customer_menu_id' => 1);
-        $check_menu2 = $this->settings_model->get_by($where2, false);
-
-        if (empty($check_menu)) { // if exist
-            $type = 'error';
-            $message = 'Information does not exist :)';
-        }elseif(!empty($check_menu2)){
-            $type = 'error';
-            $message = 'You cant delete default menu :)';
-        } else { // if not empty
-            $this->settings_model->_table_name = 'tbl_customer_menu';
-            $this->settings_model->_primary_key = 'customer_menu_id';
-            $this->settings_model->delete($id);
-
-            $type = 'success';
-            $message = 'Information Successfully Deleted';
-        }
-
-        //redirect users to view page
-        set_message($type, $message);
-        redirect('admin/settings/client_access');
-    }
-    
 
 
 }
